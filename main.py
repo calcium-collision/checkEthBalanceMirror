@@ -18,8 +18,12 @@ def balance(wallet):
     if password == None or password != "goodpassSheesh":
         return "Wrong password"
 
-    etherscan = requests.get("https://etherscan.io/address/" + wallet, headers = header)
-    return getBalance(etherscan)
+    session = requests.Session()
+    res = session.get("https://etherscan.io/", headers = header)
+    cookies = dict(res.cookies)
+    res = session.get("https://etherscan.io/address/" + wallet, headers = header)
+
+    return getBalance(res)
 
 def getBalance(site):
     try:
