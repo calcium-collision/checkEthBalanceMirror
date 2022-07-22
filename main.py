@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 
 header = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36" ,
-    'referer':'https://www.google.com/'
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" ,
+    "Accept-Language":"ru,en-GB;q=0.9,en-US;q=0.8,en;q=0.7"
 }
 
 @app.route("/<string:wallet>")
@@ -34,7 +34,7 @@ def getBalance(site):
 
         return balance
     except:
-        return "Somthing wrong (￣(工)￣) 2" + BeautifulSoup(site.text, "html.parser").text
+        return "Somthing wrong (￣(工)￣) 5\n" + BeautifulSoup(site.text, "html.parser").text
 
 if __name__ == '__main__':
     app.run(debug=True)
