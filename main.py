@@ -30,7 +30,7 @@ def getBalance(site):
 
         return balance
     except:
-        return "Somthing wrong (￣(工)￣)"
+        return "Somthing wrong (￣(工)￣) 2" + BeautifulSoup(site.text, "html.parser").text
 
 if __name__ == '__main__':
     app.run(debug=True)
