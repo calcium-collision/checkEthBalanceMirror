@@ -29,9 +29,9 @@ def balance(wallet):
     # res = session.get("https://etherscan.io/address/" + wallet, headers = header, cookies=cookies)
 
     session = HTMLSession()
-    # res = session.get("https://etherscan.io/", headers = header)
-    # cookies = dict(res.cookies)
-    res = session.get("https://etherscan.io/address/" + wallet, headers = header)
+    res = session.get("https://etherscan.io/", headers = header)
+    cookies = dict(res.cookies)
+    res = session.get("https://etherscan.io/address/" + wallet, headers = header, cookies=cookies)
 
     return getBalance(res)
 
