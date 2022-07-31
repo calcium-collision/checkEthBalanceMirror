@@ -21,7 +21,7 @@ def balance(wallet):
         balanceWeiValue = res['result']
         print(balanceWeiValue)
         balanceEthValue = int(balanceWeiValue) / 1000000000000000000
-        return str(round(balanceEthValue, 2))
+        return str(round(balanceEthValue, 4))
     except:
         return "Something wrong (￣(工)￣) \n"
 
