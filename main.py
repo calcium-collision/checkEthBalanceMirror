@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)
 from requests_html import HTMLSession
 
+
+cookie = {'ASP.NET_SessionId': 'rmywxvite4frbe1pc0umvg1j',
+            '__cflb': '02DiuFnsSsHWYH8WqVXbZzkeTrZ6gtmGV6uegZWsYZSJx'}
 header = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" ,
     "Accept-Language":"ru,en-GB;q=0.9,en-US;q=0.8,en;q=0.7"
@@ -12,12 +15,14 @@ header = {
 
 @app.route("/")
 def checkVersion():
-    return "HTMLSession"
+    session = HTMLSession()
+    res = session.get("https://etherscan.io/", headers=header)
+    return dict(res.cookies)
+
 
 
 @app.route("/<string:wallet>")
 def balance(wallet):
-
     # # Check password
     # password = request.args.get('pass', None)
     # if password == None or password != "goodpassSheesh":
@@ -29,9 +34,7 @@ def balance(wallet):
     # res = session.get("https://etherscan.io/address/" + wallet, headers = header, cookies=cookies)
 
     session = HTMLSession()
-    res = session.get("https://etherscan.io/", headers = header)
-    cookies = dict(res.cookies)
-    res = session.get("https://etherscan.io/address/" + wallet, headers = header, cookies=cookies)
+    res = session.get("https://etherscan.io/address/0x9791CeFCAb198607037DC8ee8d70358142C9EF6d" + wallet, headers = header, cookies=cookie)
 
     return getBalance(res)
 
