@@ -1,27 +1,37 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask
 import requests
 from bs4 import BeautifulSoup
-import math
 app = Flask(__name__)
-
+from requests_html import HTMLSession
 
 header = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" ,
     "Accept-Language":"ru,en-GB;q=0.9,en-US;q=0.8,en;q=0.7"
 }
 
+
+@app.route("/")
+def checkVersion():
+    return "HTMLSession"
+
+
 @app.route("/<string:wallet>")
 def balance(wallet):
 
-    # Check password
-    password = request.args.get('pass', None)
-    if password == None or password != "goodpassSheesh":
-        return "Wrong password"
+    # # Check password
+    # password = request.args.get('pass', None)
+    # if password == None or password != "goodpassSheesh":
+    #     return "Wrong password"
 
-    session = requests.Session()
-    res = session.get("https://etherscan.io/", headers = header)
-    cookies = dict(res.cookies)
-    res = session.get("https://etherscan.io/address/" + wallet, headers = header, cookies=cookies)
+    # session = requests.Session()
+    # res = session.get("https://etherscan.io/", headers = header)
+    # cookies = dict(res.cookies)
+    # res = session.get("https://etherscan.io/address/" + wallet, headers = header, cookies=cookies)
+
+    session = HTMLSession()
+    # res = session.get("https://etherscan.io/", headers = header)
+    # cookies = dict(res.cookies)
+    res = session.get("https://etherscan.io/address/" + wallet, headers = header)
 
     return getBalance(res)
 
